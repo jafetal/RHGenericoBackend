@@ -46,5 +46,19 @@ namespace SistemaGenericoRH.Helpers
                 throw new GenericException(message);
             }
         }
+        public static void ValidatePassword(String password, String message)
+        {
+
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                return;
+            }
+
+            string pattern = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$";
+            if (!Regex.IsMatch(password, pattern))
+            {
+                throw new GenericException(message);
+            }
+        }
     }
 }

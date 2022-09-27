@@ -15,7 +15,6 @@ namespace SistemaGenericoRH.Repositorys
 
         public IEnumerable<UserDto> GetDto(){
             return context.User
-                    .Where(a => a.Status)
                     .Select(a => new UserDto
                         {
                             Email = a.Email,
@@ -25,7 +24,7 @@ namespace SistemaGenericoRH.Repositorys
                             Status = a.Status,
                             User1 = a.User1
                         }
-                    );
+                    ).OrderBy(a => a.IdUser).OrderByDescending( a => a.Status);
         }
         public UserDto GetDto(int idUser){
             return context.User
@@ -41,8 +40,7 @@ namespace SistemaGenericoRH.Repositorys
                     ).FirstOrDefault();
         }
         public IEnumerable<User> Get(){
-            return context.User
-                    .Where(a => a.Status);
+            return context.User.OrderBy(a => a.IdUser).OrderByDescending(a => a.Status);
         }
         public User Get(int idUser){
             return context.User

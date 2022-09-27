@@ -66,6 +66,7 @@ namespace SistemaGenericoRH.Services
                     user.Password = simpleAES.EncryptToString(userDto.Password);
                 }
                 userRepository.Update(user);
+                scope.Complete();
             }
         }
 
@@ -77,6 +78,7 @@ namespace SistemaGenericoRH.Services
                 var user = userRepository.Get(idUser);
                 user.Status = false;
                 userRepository.Update(user);
+                scope.Complete();
             }
         }
     }

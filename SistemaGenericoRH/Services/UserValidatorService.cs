@@ -29,7 +29,7 @@ namespace SistemaGenericoRH.Services
 
         private readonly string EmailLengthMessage = $"La longitud máxima del correo electrónico son { EmailLength } caracteres";
         private readonly string UserNameLengthMessage = $"La longitud máxima del nombre de usuario son { UserNameLength } caracteres";
-        private readonly string InvalidPasswordMessage = $"La contraseña no cumple con los requisitos de seguridad";
+        private readonly string InvalidPasswordMessage = $"La contraseña no cumple con los requisitos de seguridad, debe contener por lo menos: 1 mayúscula, 1 minúscula, 1 símbolo y 1 número, y 10 caracteres en total";
         private readonly string InvalidEmailMessage = $"El correo electrónico no es válido";
 
         public void ValidateCreate(UserDto userDto)
@@ -72,6 +72,10 @@ namespace SistemaGenericoRH.Services
         public void ValidateFormat(UserDto userDto)
         {
             Validator.ValidateEmail(userDto.Email, InvalidEmailMessage);
+            if (userDto.Password?.Length > 0 )
+            {
+                Validator.ValidatePassword(userDto.Password, InvalidPasswordMessage);
+            }
         }
 
         public void ValidarRango(UserDto userDto)
@@ -105,6 +109,11 @@ namespace SistemaGenericoRH.Services
         public void ValidateDependecies(int idUser)
         {
             
+        }
+
+        public void ValidatePassword(string password)
+        {
+
         }
     }
 }
